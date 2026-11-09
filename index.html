@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>СічTech — карта персоналізованої безпеки</title>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== Екран 1: Ситуація ===== -->
+  <section class="screen is-active" id="screen-situation">
+    <header class="header">
+      <div class="logo">СічTech</div>
+      <p class="header__text">Карта персоналізованої безпеки міста</p>
+    </header>
+
+    <div class="split">
+      <div class="form">
+        <h1>Яка у вас ситуація?</h1>
+        <p class="muted">Ми покажемо ризики саме для неї, а не середні цифри по місту.</p>
+
+        <div class="options" data-group>
+          <button class="option is-selected">
+            <strong>Купівля житла</strong>
+            <span>Ризики району за 12 місяців</span>
+          </button>
+          <button class="option">
+            <strong>Туристичний маршрут</strong>
+            <span>Безпечний шлях між точками</span>
+          </button>
+          <button class="option">
+            <strong>Вечірня прогулянка</strong>
+            <span>Ризики за часом доби</span>
+          </button>
+        </div>
+
+        <p class="label">Коли ви плануєте бути там?</p>
+        <div class="chips" data-group>
+          <button class="chip">Ранок</button>
+          <button class="chip">День</button>
+          <button class="chip is-selected">Вечір</button>
+          <button class="chip">Ніч</button>
+        </div>
+
+        <button class="btn btn--primary btn--bottom" data-goto="screen-map">Показати мою карту</button>
+      </div>
+
+      <div class="map-box">
+        <img class="map-box__img" src="images/map.svg" alt="Карта ризиків міста">
+        <ul class="legend">
+          <li class="legend__low">Низький</li>
+          <li class="legend__medium">Помірний</li>
+          <li class="legend__high">Високий</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Екран 2: Карта ===== -->
+  <section class="screen" id="screen-map">
+    <div class="map-screen">
+      <aside class="sidebar">
+        <div class="logo">СічTech</div>
+        <input class="search" type="search" placeholder="Адреса або район" aria-label="Пошук">
+
+        <div class="chips chips--wrap">
+          <span class="tag tag--dark">Вечірня прогулянка</span>
+          <span class="tag">Вечір</span>
+        </div>
+
+        <p class="sidebar__title">Вулиці поруч</p>
+        <div class="streets" data-group>
+          <button class="street is-selected">
+            <strong>Вулиця [назва]</strong>
+            <span>Помірний ризик · [N] подій за 90 днів</span>
+          </button>
+          <button class="street">
+            <strong>Вулиця [назва]</strong>
+            <span>Високий ризик · [N] подій за 90 днів</span>
+          </button>
+          <button class="street">
+            <strong>Вулиця [назва]</strong>
+            <span>Низький ризик · [N] подій за 90 днів</span>
+          </button>
+        </div>
+
+        <ul class="legend legend--plain">
+          <li class="legend__low">Низький</li>
+          <li class="legend__medium">Помірний</li>
+          <li class="legend__high">Високий</li>
+        </ul>
+      </aside>
+
+      <div class="map-full">
+        <img class="map-full__img" src="images/map.svg" alt="Карта ризиків міста">
+
+        <article class="popup">
+          <div class="popup__top">
+            <span class="badge badge--medium">Помірний ризик</span>
+            <span class="muted">для вечірньої прогулянки</span>
+          </div>
+          <h2>Вулиця [назва]</h2>
+          <p class="muted">[N] подій за 90 днів, переважно крадіжки. Безпечніший маршрут довший на [N] хв.</p>
+          <div class="popup__buttons">
+            <button class="btn btn--primary" data-goto="screen-details">Детальніше</button>
+            <button class="btn btn--outline" data-message="Безпечний маршрут буде тут">Безпечний маршрут</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Екран 3: Деталі точки ===== -->
+  <section class="screen" id="screen-details">
+    <header class="header">
+      <div class="logo">СічTech</div>
+      <button class="btn btn--ghost" data-goto="screen-map">← До карти</button>
+    </header>
+
+    <div class="details">
+      <h1>Вулиця [назва]</h1>
+
+      <div class="details__grid">
+        <div class="details__col">
+          <div class="panel">
+            <p class="muted">Для вашої ситуації: вечірня прогулянка</p>
+            <p class="risk-title">Помірний ризик</p>
+            <div class="scale">
+              <span class="scale__item scale__item--low"></span>
+              <span class="scale__item scale__item--medium is-current"></span>
+              <span class="scale__item scale__item--high"></span>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2>Що саме трапляється</h2>
+            <div class="bar-row"><span>Крадіжки</span><div class="bar"><i style="width:70%"></i></div></div>
+            <div class="bar-row"><span>Шахрайство</span><div class="bar"><i style="width:42%"></i></div></div>
+            <div class="bar-row"><span>Напади</span><div class="bar"><i style="width:16%"></i></div></div>
+            <div class="bar-row"><span>Пошкодження авто</span><div class="bar"><i style="width:30%"></i></div></div>
+          </div>
+        </div>
+
+        <div class="panel panel--chart">
+          <h2>Ризик за часом доби</h2>
+          <div class="columns">
+            <div class="column"><i class="low" style="height:22%"></i>Ранок</div>
+            <div class="column"><i class="low" style="height:38%"></i>День</div>
+            <div class="column is-current"><i class="medium" style="height:68%"></i>Вечір</div>
+            <div class="column"><i class="high" style="height:100%"></i>Ніч</div>
+          </div>
+          <p class="note">Дані: [джерело], період: [дати]. Висота стовпців відносна.</p>
+          <button class="btn btn--primary" data-message="Безпечніший маршрут буде тут">Побудувати безпечніший маршрут</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+/* ---------- Змінні ---------- */
+:root {
+  --bg: #f2f4f1;
+  --white: #ffffff;
+  --ink: #10302b;
+  --muted: #4a625d;
+  --line: #d5dcd4;
+  --line-soft: #e1e6e0;
+  --green: #1f8f6f;
+  --green-light: #e2f0e9;
+  --amber: #e0a12d;
+  --amber-light: #f7e3b0;
+  --red: #d6453f;
+  --red-light: #f6d3d1;
+  --radius: 14px;
+}
+
+/* ---------- Базове ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.5;
+}
+
+h1 { margin: 0 0 14px; font-size: 44px; line-height: 1.15; font-weight: 800; }
+h2 { margin: 0 0 12px; font-size: 20px; }
+button, input { font-family: inherit; }
+button { cursor: pointer; }
+
+.muted { margin: 0 0 16px; color: var(--muted); }
+.label { margin: 32px 0 12px; color: var(--muted); font-size: 14px; }
+.logo { font-weight: 800; font-size: 18px; }
+
+/* Показуємо лише активний екран */
+.screen { display: none; min-height: 100vh; }
+.screen.is-active { display: block; }
+
+/* ---------- Верхня панель (екрани 1 і 3) ---------- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 48px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.header__text { margin: 0; color: var(--muted); font-size: 14px; }
+
+/* ---------- Кнопки ---------- */
+.btn {
+  height: 52px;
+  padding: 0 20px;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 700;
+}
+.btn--primary { border: 0; background: var(--ink); color: var(--white); }
+.btn--outline { border: 2px solid var(--ink); background: var(--white); color: var(--ink); }
+.btn--ghost {
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 400;
+}
+.btn--bottom { width: 100%; height: 56px; margin-top: auto; }
+
+/* ---------- Екран 1 ---------- */
+.split {
+  display: flex;
+  gap: 48px;
+  height: calc(100vh - 72px);
+  min-height: 640px;
+  padding: 56px 48px 48px;
+}
+.form { display: flex; flex-direction: column; width: 560px; flex-shrink: 0; }
+.form .muted { margin-bottom: 32px; font-size: 16px; }
+
+.options { display: grid; gap: 12px; }
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  text-align: left;
+  font-size: 17px;
+}
+.option span { color: var(--muted); font-size: 14px; }
+.option.is-selected { border: 2px solid var(--green); background: var(--green-light); }
+
+.chips { display: flex; gap: 10px; }
+.chip {
+  flex: 1;
+  height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--white);
+  color: var(--ink);
+  font-size: 15px;
+}
+.chip.is-selected { border-color: var(--ink); background: var(--ink); color: var(--white); font-weight: 700; }
+
+/* Карта-картинка справа */
+.map-box { position: relative; flex: 1; overflow: hidden; border-radius: 20px; }
+.map-box__img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.legend {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  display: flex;
+  gap: 16px;
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--white);
+  font-size: 13px;
+  list-style: none;
+}
+.legend li::before { content: "●"; margin-right: 6px; }
+.legend__low::before { color: var(--green); }
+.legend__medium::before { color: var(--amber); }
+.legend__high::before { color: var(--red); }
+.legend--plain { position: static; margin-top: auto; padding: 0; background: none; }
+
+/* ---------- Екран 2 ---------- */
+.map-screen { display: flex; height: 100vh; min-height: 640px; }
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 420px;
+  flex-shrink: 0;
+  padding: 28px;
+  border-right: 1px solid var(--line-soft);
+  background: var(--white);
+}
+.search {
+  width: 100%;
+  height: 48px;
+  padding: 0 20px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  font-size: 15px;
+}
+.chips--wrap { flex-wrap: wrap; gap: 8px; }
+.tag {
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  font-size: 14px;
+}
+.tag--dark { border-color: var(--ink); background: var(--ink); color: var(--white); font-weight: 700; }
+
+.sidebar__title { margin: 0; color: var(--muted); font-size: 13px; font-weight: 700; }
+.streets { display: grid; gap: 10px; }
+.street {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  background: var(--white);
+  color: var(--ink);
+  text-align: left;
+  font-size: 16px;
+}
+.street span { color: var(--muted); font-size: 13px; }
+.street.is-selected { border: 2px solid var(--ink); }
+
+.map-full { position: relative; flex: 1; overflow: hidden; }
+.map-full__img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+.popup {
+  position: absolute;
+  right: 32px;
+  bottom: 32px;
+  width: 400px;
+  padding: 24px;
+  border-radius: 18px;
+  background: var(--white);
+  box-shadow: 0 8px 30px rgba(16, 48, 43, 0.15);
+}
+.popup__top { display: flex; align-items: center; justify-content: space-between; font-size: 12px; }
+.popup__top .muted { margin: 0; }
+.popup h2 { margin: 14px 0 8px; font-size: 22px; }
+.popup .muted { font-size: 14px; }
+.popup__buttons { display: flex; gap: 10px; }
+.popup__buttons .btn { flex: 1; height: 48px; }
+
+.badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.badge--medium { background: var(--amber-light); }
+
+/* ---------- Екран 3 ---------- */
+.details { padding: 40px 48px 48px; }
+.details h1 { margin-bottom: 28px; font-size: 36px; }
+.details__grid { display: flex; gap: 32px; }
+.details__col { display: flex; flex: 1; flex-direction: column; gap: 28px; }
+
+.panel {
+  padding: 24px 28px;
+  border: 1px solid var(--line-soft);
+  border-radius: 18px;
+  background: var(--white);
+}
+.panel .muted { margin-bottom: 4px; font-size: 13px; }
+.risk-title { margin: 0 0 16px; font-size: 30px; font-weight: 800; }
+
+.scale { display: flex; gap: 6px; }
+.scale__item { flex: 1; height: 10px; border-radius: 5px; }
+.scale__item--low { background: var(--green); }
+.scale__item--medium { background: var(--amber); }
+.scale__item--high { background: var(--red); }
+.scale__item.is-current { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+.bar-row { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; font-size: 15px; }
+.bar-row span { width: 160px; }
+.bar { flex: 1; height: 12px; border-radius: 6px; background: #e6eae5; }
+.bar i { display: block; height: 100%; border-radius: 6px; background: var(--amber); }
+
+.panel--chart { display: flex; flex: 1; flex-direction: column; }
+.columns { display: flex; align-items: flex-end; gap: 20px; flex: 1; min-height: 300px; padding-top: 24px; }
+.column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  gap: 10px;
+  text-align: center;
+  font-size: 14px;
+}
+.column i { display: block; border-radius: 8px; }
+.column .low { background: var(--green); }
+.column .medium { background: var(--amber); }
+.column .high { background: var(--red); }
+.column.is-current { font-weight: 800; }
+.column.is-current i { outline: 3px solid var(--ink); }
+
+.note { margin: 18px 0 20px; color: var(--muted); font-size: 13px; }
+
+/* ---------- Підказка-повідомлення ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transition: opacity 0.2s;
+}
+.toast.is-visible { opacity: 1; }
+
+/* ---------- Планшет і телефон ---------- */
+@media (max-width: 900px) {
+  .header { padding: 0 20px; }
+  h1 { font-size: 32px; }
+
+  .split, .details__grid, .map-screen { flex-direction: column; height: auto; }
+  .split { padding: 32px 20px; }
+  .form { width: 100%; }
+  .btn--bottom { margin-top: 32px; }
+  .map-box { height: 320px; flex: none; }
+
+  .sidebar { width: 100%; }
+  .map-full { height: 480px; flex: none; }
+  .popup { right: 16px; bottom: 16px; left: 16px; width: auto; }
+
+  .details { padding: 32px 20px; }
+  .bar-row span { width: 110px; }
+}
