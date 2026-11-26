@@ -6,6 +6,7 @@
   <title>СічTech — карта персоналізованої безпеки</title>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="map/map.css">
 </head>
 <body>
 
@@ -48,7 +49,7 @@
       </div>
 
       <div class="map-box">
-        <img class="map-box__img" src="images/map.svg" alt="Карта ризиків міста">
+        <div id="map-preview" class="map-box__map"></div>
         <ul class="legend">
           <li class="legend__low">Низький</li>
           <li class="legend__medium">Помірний</li>
@@ -70,20 +71,9 @@
           <span class="tag">Вечір</span>
         </div>
 
-        <p class="sidebar__title">Вулиці поруч</p>
-        <div class="streets" data-group>
-          <button class="street is-selected">
-            <strong>Вулиця [назва]</strong>
-            <span>Помірний ризик · [N] подій за 90 днів</span>
-          </button>
-          <button class="street">
-            <strong>Вулиця [назва]</strong>
-            <span>Високий ризик · [N] подій за 90 днів</span>
-          </button>
-          <button class="street">
-            <strong>Вулиця [назва]</strong>
-            <span>Низький ризик · [N] подій за 90 днів</span>
-          </button>
+        <p class="sidebar__title">Місця поруч</p>
+        <div class="streets" id="streets" data-group>
+          <p class="muted">Завантажуємо дані…</p>
         </div>
 
         <ul class="legend legend--plain">
@@ -94,18 +84,18 @@
       </aside>
 
       <div class="map-full">
-        <img class="map-full__img" src="images/map.svg" alt="Карта ризиків міста">
+        <div id="map" class="map-full__map"></div>
 
         <article class="popup">
           <div class="popup__top">
-            <span class="badge badge--medium">Помірний ризик</span>
-            <span class="muted">для вечірньої прогулянки</span>
+            <span class="badge badge--medium" id="popup-badge">Помірний ризик</span>
+            <span class="muted" id="popup-for">для вечірньої прогулянки</span>
           </div>
-          <h2>Вулиця [назва]</h2>
-          <p class="muted">[N] подій за 90 днів, переважно крадіжки. Безпечніший маршрут довший на [N] хв.</p>
+          <h2 id="popup-title">Оберіть місце на карті</h2>
+          <p class="muted" id="popup-text">Клікніть на карті або на місце зліва, щоб побачити рівень ризику.</p>
           <div class="popup__buttons">
             <button class="btn btn--primary" data-goto="screen-details">Детальніше</button>
-            <button class="btn btn--outline" data-message="Безпечний маршрут буде тут">Безпечний маршрут</button>
+            <button class="btn btn--outline" id="btn-route">Безпечний маршрут</button>
           </div>
         </article>
       </div>
@@ -120,13 +110,13 @@
     </header>
 
     <div class="details">
-      <h1>Вулиця [назва]</h1>
+      <h1 id="details-title">Обране місце</h1>
 
       <div class="details__grid">
         <div class="details__col">
           <div class="panel">
-            <p class="muted">Для вашої ситуації: вечірня прогулянка</p>
-            <p class="risk-title">Помірний ризик</p>
+            <p class="muted" id="details-for">Для вашої ситуації</p>
+            <p class="risk-title" id="details-risk">Помірний ризик</p>
             <div class="scale">
               <span class="scale__item scale__item--low"></span>
               <span class="scale__item scale__item--medium is-current"></span>
@@ -136,23 +126,15 @@
 
           <div class="panel">
             <h2>Що саме трапляється</h2>
-            <div class="bar-row"><span>Крадіжки</span><div class="bar"><i style="width:70%"></i></div></div>
-            <div class="bar-row"><span>Шахрайство</span><div class="bar"><i style="width:42%"></i></div></div>
-            <div class="bar-row"><span>Напади</span><div class="bar"><i style="width:16%"></i></div></div>
-            <div class="bar-row"><span>Пошкодження авто</span><div class="bar"><i style="width:30%"></i></div></div>
+            <div id="bars"></div>
           </div>
         </div>
 
         <div class="panel panel--chart">
           <h2>Ризик за часом доби</h2>
-          <div class="columns">
-            <div class="column"><i class="low" style="height:22%"></i>Ранок</div>
-            <div class="column"><i class="low" style="height:38%"></i>День</div>
-            <div class="column is-current"><i class="medium" style="height:68%"></i>Вечір</div>
-            <div class="column"><i class="high" style="height:100%"></i>Ніч</div>
-          </div>
-          <p class="note">Дані: [джерело], період: [дати]. Висота стовпців відносна.</p>
-          <button class="btn btn--primary" data-message="Безпечніший маршрут буде тут">Побудувати безпечніший маршрут</button>
+          <div class="columns" id="columns"></div>
+          <p class="note" id="details-note"></p>
+          <button class="btn btn--primary" id="btn-route-details">Побудувати безпечніший маршрут</button>
         </div>
       </div>
     </div>
@@ -160,6 +142,7 @@
 
   <div class="toast" id="toast" role="status"></div>
 
+  <script src="map/map.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

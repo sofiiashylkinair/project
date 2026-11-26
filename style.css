@@ -275,6 +275,13 @@ button { cursor: pointer; }
 }
 .toast.is-visible { opacity: 1; }
 
+/* ---------- Інтерактивна карта ---------- */
+.map-full__map { position: absolute; inset: 0; z-index: 0; }
+.map-full .szmap { border-radius: 0; }
+.popup { z-index: 1000; }
+.badge--low { background: var(--green-light); }
+.badge--high { background: var(--red-light); }
+
 /* ---------- Планшет і телефон ---------- */
 @media (max-width: 900px) {
   .header { padding: 0 20px; }
@@ -293,3 +300,20 @@ button { cursor: pointer; }
   .details { padding: 32px 20px; }
   .bar-row span { width: 110px; }
 }
+
+/* ---------- Інтерактивні карти (додати в КІНЕЦЬ style.css) ---------- */
+.map-box__map { position: absolute; inset: 0; z-index: 0; }
+.map-box .szmap, .map-full .szmap { min-height: 0; }
+.map-box .szmap { border-radius: 20px; }
+.map-box .legend { z-index: 500; }
+.map-full .szmap { border-radius: 0; }
+.popup { z-index: 1000; }
+.toast { z-index: 2000; }
+.badge--low { background: var(--green-light); }
+.badge--high { background: var(--red-light); }
+
+/* кнопка «Показати мою карту» більше не злипається з вибором часу */
+.form .chips { margin-bottom: 32px; }
+
+/* порожній стан списку вулиць */
+.streets .muted { margin: 0; font-size: 14px; }
