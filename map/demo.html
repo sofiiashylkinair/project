@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SafeZone: тест карти</title>
+  <link rel="stylesheet" href="map.css">
+  <style>
+    body { margin: 0; font-family: system-ui, sans-serif; display: flex; height: 100vh; }
+    aside { width: 280px; padding: 16px; box-sizing: border-box; overflow: auto; background: #f2f4f1; }
+    aside h3 { margin: 0 0 12px; }
+    aside input, aside select, aside button { width: 100%; box-sizing: border-box; margin: 4px 0; padding: 10px; border-radius: 10px; border: 1px solid #ccd; font: inherit; }
+    aside button { background: #12302b; color: #fff; border: 0; cursor: pointer; }
+    .times { display: flex; gap: 4px; } .times button { padding: 8px 2px; font-size: 13px; }
+    #info { margin-top: 12px; font-size: 14px; }
+    #map { flex: 1; height: 100%; border-radius: 0; }
+  </style>
+</head>
+<body>
+  <aside>
+    <h3>СічTech: тест карти</h3>
+    <input id="addr" placeholder="Адреса або район">
+    <button id="go">Перевірити адресу</button>
+    <select id="profile">
+      <option value="all">Усі події</option>
+      <option value="tourist">Профіль: турист</option>
+      <option value="real_estate">Профіль: нерухомість</option>
+    </select>
+    <div class="times">
+      <button data-t="">Весь день</button><button data-t="morning">Ранок</button>
+      <button data-t="day">День</button><button data-t="evening">Вечір</button><button data-t="night">Ніч</button>
+    </div>
+    <button id="route">Безпечний маршрут (клікни A і B на карті)</button>
+    <div id="info">Клікни на карті, щоб оцінити ризик навколо точки.</div>
+  </aside>
+  <div id="map"></div>
+
+  <script src="map.js"></script>
+  <script>
+    SafeZoneMap.init({
+      container: "map",
+      apiUrl: "http://127.0.0.1:8000",
+      fallbackUrl: "../backend/incidents.json",
+      onRoute: function (r) {
+        document.getElementById("info").textContent =
+          "Маршрут: " + r.distanceM + " м, ~" + r.durationMin + " хв, ризик: " + r.level +
+          " (варіантів: " + r.alternatives + ")";
+      }
+    }).then(function (m) {
+      document.getElementById("profile").onchange = function () { m.setProfile(this.value); };
+      document.querySelectorAll(".times button").forEach(function (b) {
+        b.onclick = function () { m.setTimeOfDay(b.dataset.t); };
+      });
+      document.getElementById("route").onclick = function () {
+        document.getElementById("info").textContent = "Клікни точку A, потім точку B.";
+        m.startRoute();
+      };
+      document.getElementById("go").onclick = function () {
+        m.goToAddress(document.getElementById("addr").value).catch(function (e) { alert(e.message); });
+      };
+    });
+  </script>
+</body>
+</html>
